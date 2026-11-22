@@ -9,7 +9,7 @@ Codex + packaged skills
        |
 Windows companion (.NET 10 / WPF)
   |- local panel + click-through AI cursor [PROTOTYPE]
-  |- monitor/DPI anchors [PARTIAL]
+  |- per-monitor DPI-aware overlays and anchors [IMPLEMENTED FOR DEMO]
   |- UI Automation inspection [PLANNED]
   |- on-demand capture + masking [PLANNED]
   |- lesson/state engine [PLANNED]
@@ -38,7 +38,11 @@ Suggested future MCP tools:
 **No MCP server config is declared in the current plugin manifest.** Add `mcp.json` only when the server is real and tested.
 
 ## Coordinate systems
-UI Automation screen coordinates, Win32 screen coordinates, WPF DIPs, and capture pixel bounds are different units. Build an explicit `CursorAnchorResolver` with physical-pixel coordinates, per-monitor transforms, monitor containment, negative monitor origins, virtual-screen holes, and scaling. The current prototype does **not** solve mixed-DPI monitor support robustly.
+The companion runs per-monitor DPI aware. Win32 provides the real pointer position and monitor bounds in physical desktop pixels. `CursorMath` resolves parking, target anchors, and elapsed-time animation in that space, including negative origins and gaps between displays. Each monitor has a separate layered, click-through WPF surface. It converts pixels relative to its monitor origin into local DIPs using that surface's DPI. The controller rebuilds surfaces when monitor geometry or DPI changes.
+
+The demo reads fresh bounds from its own WPF button while the panel is active. It clips the bounds to the visible viewport and draws one outline across any intersecting displays. A missing or off-screen target returns the avatar to idle. The Core smoke tests cover simulated monitor layouts. The README describes interactive checks for Windows display drivers, native hit testing, and live layout changes.
+
+Future UI Automation and capture adapters will need their own coordinate conversions and target verification.
 
 ## Performance
 Measure p50/p95: time to open panel, identify a UIA target, render highlight, answer first step, and verify step. Prefer local UIA to repeated screenshots. Avoid model calls on every pointer frame. Response time depends on the chosen model/network and cannot be guaranteed.

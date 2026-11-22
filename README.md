@@ -14,7 +14,7 @@ CursorMate is a HeyClicky-style visual teaching assistant being developed for **
 - **Read-only by default:** A user-started, visible session; selected window only; no background screen recording.
 - **UI Automation first:** Prefer accessibility metadata, then on-demand cropped vision.
 - **Verify real outcomes:** No success claims based solely on issuing clicks.
-- **Multi-monitor:** Aim for per-monitor DPI-aware behavior, including ultrawide and portrait displays.
+- **Multi-monitor:** The prototype uses a DPI-aware overlay per display. See the verification steps below for mixed-DPI and portrait layouts.
 - **Local Stop:** Cancel queued actions immediately without needing the model.
 
 ## Repository layout
@@ -51,9 +51,9 @@ AGENTS.md                   Instructions Codex should follow in this repo
    ```powershell
    dotnet run --project src/CursorMate.Companion
    ```
-4. The companion's small control panel starts a **click-through decorative cursor** beside your physical pointer. Select **Point at demo button** to see the AI pointer target a control in the companion window; **Park beside mouse** to return to idle. **Hide cursor** stops displaying the overlay.
+4. The companion starts a **click-through decorative cursor** beside your physical pointer. Select **Point at this demo button** to highlight the local target, **Park beside real mouse** to go idle, or **Hide AI cursor** to turn off the overlay. **Reduce cursor motion** snaps the avatar to its anchor for this session. The companion also respects the Windows animation setting.
 
-The prototype has **no screenshot recording, external app inspection, network requests, or input injection**. Mixed-DPI, per-monitor layout correctness is not yet implemented and is tracked as a milestone.
+The prototype has **no screenshot recording, external app inspection, network requests, or input injection**.
 
 ## Build and check
 
@@ -63,6 +63,15 @@ dotnet run --project tests/CursorMate.SmokeTests -c Release
 ```
 
 The WPF app must be built on Windows. The core smoke tests are cross-platform. Automated CI builds and tests are configured; check GitHub Actions for results.
+
+### Verify the overlay on Windows
+
+1. In **Settings → System → Display**, test with one display, then two and three extended displays. Use different scales such as 100%, 150%, and 200%. Where available, include an ultrawide and a portrait display. Place a secondary display left of and another above the primary. Offset them vertically to leave a gap in the virtual desktop.
+2. Start the demo and move the real mouse across each display, slowly through seams and quickly between distant corners. At rest, check that the entire mint avatar stays inside the display and parks 18–28 DIPs from the mouse hotspot. Check that the avatar has a consistent logical size across scales. On one display at a time, use a stationary mouse to confirm that pointing, parking, and toggling reduced motion with the keyboard leave the real mouse in place.
+3. Point at the demo button, then click on its painted highlight stroke. Confirm the click reaches the underlying companion window without the overlay taking focus. Also click the demo button itself normally.
+4. Point at the demo button again. Drag the companion across displays and leave it across a seam. Resize it, then shrink it enough to scroll the panel. The highlight should follow the visible button. Scroll the button fully out of view or minimize the panel and check that the highlight clears and the avatar parks. Select the button again after restoring it.
+5. Change a display's scale, position, or orientation. Disconnect and reconnect a secondary display while the demo runs. Confirm parking recovers on each remaining display. Refocus the companion and select the demo button again if the panel lost focus during the change.
+6. Turn on **Reduce cursor motion** and repeat a park and target transition. Check that the avatar snaps into place. Turn it off and disable **Animation effects** in Windows accessibility settings to check the system setting. Use **Hide AI cursor** to remove both the avatar and highlight, then **Show AI cursor** to resume parking.
 
 ## Work on it with Codex
 
