@@ -1,0 +1,40 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cursormate",
+  "version": "0.1.0",
+  "description": "Teach-first visual desktop companion workflows and future Codex integration. Current package contains skills only.",
+  "author": {
+    "name": "ACABadAngel",
+    "url": "https://github.com/ACABadAngel"
+  },
+  "homepage": "https://github.com/ACABadAngel/CursorMate",
+  "repository": "https://github.com/ACABadAngel/CursorMate",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "desktop",
+    "visual-guide",
+    "windows",
+    "accessibility"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "CursorMate",
+        "shortDescription": "AI desktop teaching companion",
+        "longDescription": "Teach-first skill instructions for an open-source Windows desktop guide. The live desktop MCP connection is not yet implemented.",
+        "developerName": "ACABadAngel",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Guide software setup",
+          "Plan tutorials"
+        ],
+        "websiteURL": "https://github.com/ACABadAngel/CursorMate",
+        "defaultPrompt": [
+          "Guide me through setting up Python in VS Code.",
+          "Explain how to organize a Roblox Studio UI."
+        ]
+      }
+    }
+  }
+}

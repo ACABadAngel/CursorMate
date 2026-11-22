@@ -1,0 +1,24 @@
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+TestResults/
+artifacts/
+.vs/
+.vscode/*.log
+# OS
+.DS_Store
+Thumbs.db
+# Secrets
+.env
+.env.*
+!.env.example
+**/secrets.json
+**/appsettings.Local.json
+# Local capture, diagnostics and recordings
+captures/
+screenshots/
+recordings/
+*.dmp
