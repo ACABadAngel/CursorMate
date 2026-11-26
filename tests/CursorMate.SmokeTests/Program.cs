@@ -21,4 +21,13 @@ var rejected = false;
 try { CursorMath.PointAt(new PixelRect(0, 0, 0, 0), screen); }
 catch (ArgumentException) { rejected = true; }
 Check(rejected, "invalid target rejected");
+var scaled = CursorMath.ParkNear(new PixelPoint(1919, 1079), screen, 48, 52);
+Check(scaled.X + 52 <= screen.Right && scaled.Y + 52 <= screen.Bottom, "scaled cursor remains on monitor");
+var nearRight = new PixelRect(1880, 400, 40, 70);
+var placement = CursorMath.PlaceMarker(nearRight, screen, 26, 8);
+Check(placement.Origin.X + 26 <= screen.Right, "marker fits near right edge");
+Check(!new PixelRect(placement.Origin.X, placement.Origin.Y, 26, 26).Intersect(nearRight).IsValid, "marker avoids control overlap");
+var portrait = new PixelRect(-1080, -500, 1080, 1920);
+var portraitMarker = CursorMath.PlaceMarker(new PixelRect(-1050, -450, 90, 45), portrait, 39, 12);
+Check(portrait.Contains(portraitMarker.Origin), "portrait negative origin marker");
 Console.WriteLine("All core smoke tests passed.");
