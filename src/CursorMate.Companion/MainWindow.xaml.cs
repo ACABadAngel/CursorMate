@@ -34,9 +34,10 @@ public partial class MainWindow : Window
     {
         _expanded = !_expanded;
         Details.Visibility = _expanded ? Visibility.Visible : Visibility.Collapsed;
+        if (!_expanded) _overlay?.Park();
         ExpandButton.Content = _expanded ? "⌃" : "⌄";
-        double targetWidth = _expanded ? Math.Min(440, SystemParameters.WorkArea.Width) : 264;
-        double targetHeight = _expanded ? Math.Min(525, SystemParameters.WorkArea.Height - 20) : 54;
+        double targetWidth = _expanded ? Math.Min(440, SystemParameters.WorkArea.Width) : 236;
+        double targetHeight = _expanded ? Math.Min(550, SystemParameters.WorkArea.Height - 20) : 48;
         var duration = TimeSpan.FromMilliseconds(SystemParameters.ClientAreaAnimation ? 220 : 1);
         var easing = new CubicEase { EasingMode = EasingMode.EaseOut };
         BeginAnimation(WidthProperty, new DoubleAnimation(targetWidth, duration) { EasingFunction = easing });
@@ -98,7 +99,7 @@ public partial class MainWindow : Window
     {
         _overlay?.PointAt(() =>
         {
-            if (!DemoTarget.IsVisible) return null;
+            if (!DemoTarget.IsVisible || !_expanded) return null;
             return new Rect(DemoTarget.PointToScreen(new Point(0, 0)),
                 DemoTarget.PointToScreen(new Point(DemoTarget.ActualWidth, DemoTarget.ActualHeight)));
         });
