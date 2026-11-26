@@ -8,6 +8,8 @@
     <AssemblyName>CursorMate.Companion</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <ProjectReference Include="../CursorMate.Core/CursorMate.Core.csproj" />
   </ItemGroup>
 </Project>
