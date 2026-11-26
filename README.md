@@ -2,9 +2,9 @@
 
 **An open-source Windows AI desktop companion that teaches by default and automates only when asked.**
 
-CursorMate is a HeyClicky-style visual teaching assistant being developed for **OpenAI Codex**. It will identify UI controls, point to them with its own miniature animated cursor, explain one step at a time, and optionally perform an explicitly approved action.
+CursorMate is a HeyClicky-style visual teaching assistant being developed as a **standalone Windows application**, with optional future Codex integration. It will identify UI controls, point to them with its own miniature animated cursor, explain one step at a time, and optionally perform an explicitly approved action.
 
-> **Project status: early scaffold / pre-alpha.** The current Windows prototype only demonstrates a separate, click-through AI cursor and a local demo target. It does **not** yet read other applications, take screenshots, connect to Codex via MCP, speak, or perform desktop actions.
+> **Project status: pre-alpha.** This branch introduces an animated top-center dock and one-shot local UI Automation control-type inspection. The cursor demo remains available. AI chat, screenshot capture, voice and desktop automation are not connected. Windows verification is pending.
 
 ## Product principles
 
@@ -51,9 +51,9 @@ AGENTS.md                   Instructions Codex should follow in this repo
    ```powershell
    dotnet run --project src/CursorMate.Companion
    ```
-4. The companion's small control panel starts a **click-through decorative cursor** beside your physical pointer. Select **Point at demo button** to see the AI pointer target a control in the companion window; **Park beside mouse** to return to idle. **Hide cursor** stops displaying the overlay.
+4. Expand the top-center dock to access cursor controls and local inspection. Choose Inspect, then switch to the desired application within three seconds. Only immediate child control types are summarized.
 
-The prototype has **no screenshot recording, external app inspection, network requests, or input injection**. Mixed-DPI, per-monitor layout correctness is not yet implemented and is tracked as a milestone.
+The prototype has **no screenshot recording, network requests or input injection**. Local inspection is explicitly triggered and limited to control types. Mixed-DPI, per-monitor layout correctness is not yet implemented and is tracked as a milestone.
 
 ## Build and check
 
@@ -67,6 +67,10 @@ The WPF app must be built on Windows. The core smoke tests are cross-platform. A
 ## Work on it with Codex
 
 See [docs/CODEX_SETUP.md](docs/CODEX_SETUP.md). In Codex, open/connect this GitHub repository or clone it locally, read [AGENTS.md](AGENTS.md), and start with a single GitHub issue. Have Codex implement, test, and submit one focused PR at a time. The `skills/` instructions can also be used as plugin skills, but **the MCP server is not implemented yet**.
+
+## Standalone direction
+
+See [docs/STANDALONE_BLUEPRINT.md](docs/STANDALONE_BLUEPRINT.md) for the current milestone ordering, interface design and acceptance criteria. The older roadmap below is historical.
 
 ## Roadmap
 
