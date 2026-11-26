@@ -3,8 +3,11 @@
 ## Mission
 Build an open-source Windows desktop AI companion that **teaches visually by default**, with optional user-approved automation. Read `docs/PRODUCT.md`, `docs/ARCHITECTURE.md`, and `docs/SECURITY.md` before architectural changes. Work in small, testable GitHub issues and PRs.
 
+## Standalone direction
+Read `docs/STANDALONE_BLUEPRINT.md` for the current roadmap; it supersedes older Codex-first ordering. The primary UI is a top-center animated dock. Official subscription authorization must be verified before enabling cloud inference. No cookie replay or automatic paid fallback.
+
 ## Current reality
-This repository is a pre-alpha WPF mini-cursor demo plus an initial architecture. **Do not claim** the app can inspect arbitrary windows, capture screenshots, guide tutorials, run voice, automate desktop actions, or communicate over MCP until those features are actually implemented and tested.
+This repository is a pre-alpha WPF dock, mini-cursor demo and explicitly triggered local control-type inspection plus an initial architecture. **Do not claim** the app can perform full screen understanding, capture screenshots, guide tutorials, run voice, automate desktop actions, or communicate over MCP until those features are actually implemented and tested.
 
 ## Non-negotiable behavior
 1. Teach is default. Requests for instructions do not authorize click, typing, shell execution, file changes, purchases, or external communication.
